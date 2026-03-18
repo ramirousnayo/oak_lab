@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 style="font-family:'Press Start 2P',monospace; font-size:0.75rem; color:#FFD700; text-align:center; margin-bottom:2rem;">
+  ¿Cuál será tu compañero?
+</h2>
+
+<div style="display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap;">
+  {% for creature in creatures %}
+  <a href="#" style="text-decoration:none;">
+    <div class="creature-card">
+      <div class="creature-emoji">{{ creature.emoji }}</div>
+      <h3 class="creature-name">{{ creature.name }}</h3>
+      <span class="creature-type type-{{ creature.type }}">{{ creature.get_type_display }}</span>
+      <p class="creature-desc">{{ creature.description }}</p>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<style>
+  .creature-card {
+    background: rgba(255,255,255,0.05);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    width: 220px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .creature-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    border-color: #FFD700;
+    box-shadow: 0 8px 30px rgba(255,215,0,0.2);
+  }
+
+  .creature-emoji {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .creature-name {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.65rem;
+    color: #FFD700;
+    margin-bottom: 0.75rem;
+  }
+
+  .creature-type {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  .type-fire  { background: rgba(229,57,53,0.3);  color: #ff8a80; }
+  .type-water { background: rgba(30,136,229,0.3); color: #82b1ff; }
+  .type-grass { background: rgba(67,160,71,0.3);  color: #b9f6ca; }
+
+  .creature-desc {
+    font-size: 0.8rem;
+    color: #aaa;
+    line-height: 1.5;
+  }
+</style>
+{% endblock %}
