@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="text-align:center; padding:3rem 1rem;">
+  <div class="success-emoji">🎉</div>
+  <h2 style="font-family:'Press Start 2P',monospace; font-size:0.75rem; color:#FFD700; margin:1.5rem 0;">
+    ¡Reserva Confirmada!
+  </h2>
+  <p style="color:#aaa; margin-bottom:2rem;">
+    El Profesor Oak te espera. ¡Tu aventura está por comenzar!
+  </p>
+  <a href="{% url 'my_booking' %}" class="btn">Ver mi reserva</a>
+</div>
+
+<style>
+  .success-emoji {
+    font-size: 5rem;
+    animation: celebrate 0.5s ease infinite alternate;
+  }
+
+  @keyframes celebrate {
+    from { transform: scale(1) rotate(-5deg); }
+    to   { transform: scale(1.2) rotate(5deg); }
+  }
+</style>
+{% endblock %}

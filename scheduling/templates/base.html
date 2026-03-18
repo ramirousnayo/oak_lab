@@ -118,7 +118,7 @@
 
   <nav>
     {% if user.is_authenticated %}
-      <a href="#">Mi Reserva</a>
+      <a href="{% url 'my_booking' %}">Mi Reserva</a>
       <a href="{% url 'logout' %}">Salir</a>
     {% else %}
       <a href="{% url 'login' %}">Iniciar sesión</a>

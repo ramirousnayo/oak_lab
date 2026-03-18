@@ -9,7 +9,7 @@
 
 <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
   {% for slot in slots %}
-  <a href="#" style="text-decoration:none;">
+  <a href="{% url 'confirm_booking' creature.id slot.id %}" style="text-decoration:none;">
     <div class="slot-card">
       <div class="slot-day">{{ slot.get_day_display }}</div>
       <div class="slot-time">{{ slot.start_time|time:"H:i" }} — {{ slot.end_time|time:"H:i" }}</div>

@@ -48,3 +48,36 @@ def choose_slot(request, creature_id):
         'creature': creature,
         'slots': available_slots
     })
+
+@login_required
+def confirm_booking(request, creature_id, slot_id):
+    if hasattr(request.user, 'booking'):
+        return redirect('my_booking')
+    creature = Creature.objects.get(id=creature_id)
+    slot = TimeSlot.objects.get(id=slot_id)
+    
+    if request.method == 'POST':
+        if slot.spots_left() > 0:
+            Booking.objects.create(
+                user=request.user,
+                creature=creature,
+                timeslot=slot
+            )
+            return redirect('booking_success')
+    
+    return render(request, 'confirm_booking.html', {
+        'creature': creature,
+        'slot': slot
+    })
+
+@login_required
+def booking_success(request):
+    return render(request, 'booking_success.html')
+
+@login_required
+def my_booking(request):
+    try:
+        booking = Booking.objects.select_related('creature', 'timeslot').get(user=request.user)
+    except Booking.DoesNotExist:
+        booking = None
+    return render(request, 'my_booking.html', {'booking': booking})

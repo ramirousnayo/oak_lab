@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card" style="max-width:500px; margin:0 auto; text-align:center;">
+  <h2 style="font-family:'Press Start 2P',monospace; font-size:0.75rem; color:#FFD700; margin-bottom:2rem;">
+    Confirmar Reserva
+  </h2>
+
+  <div style="font-size:4rem; margin-bottom:1rem;">{{ creature.emoji }}</div>
+  
+  <div style="margin-bottom:1.5rem;">
+    <p style="color:#aaa; font-size:0.85rem; margin-bottom:0.5rem;">Entrenador</p>
+    <p style="font-size:1rem; font-weight:bold;">{{ request.user.username }}</p>
+  </div>
+
+  <div style="margin-bottom:1.5rem;">
+    <p style="color:#aaa; font-size:0.85rem; margin-bottom:0.5rem;">Criatura elegida</p>
+    <p style="font-size:1rem; font-weight:bold; color:#FFD700;">{{ creature.name }}</p>
+  </div>
+
+  <div style="margin-bottom:2rem;">
+    <p style="color:#aaa; font-size:0.85rem; margin-bottom:0.5rem;">Horario</p>
+    <p style="font-size:1rem; font-weight:bold;">
+      {{ slot.get_day_display }} {{ slot.start_time|time:"H:i" }} — {{ slot.end_time|time:"H:i" }}
+    </p>
+  </div>
+
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn">🎯 Confirmar Reserva</button>
+  </form>
+
+  <a href="{% url 'choose_creature' %}" style="display:block; margin-top:1rem; color:#aaa; font-size:0.8rem;">
+    ← Volver a elegir
+  </a>
+</div>
+{% endblock %}
