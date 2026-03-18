@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratorio del Profesor Oak</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #1a1a2e;
+      background-image: radial-gradient(circle at 20% 50%, #16213e 0%, #1a1a2e 100%);
+      font-family: 'Roboto', sans-serif;
+      color: #f0f0f0;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
+
+    header h1 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1rem;
+      color: #FFD700;
+      text-shadow: 2px 2px 0px #b8860b;
+      line-height: 1.8;
+    }
+
+    header p {
+      color: #aaa;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    nav {
+      text-align: center;
+      padding: 0.5rem;
+    }
+
+    nav a {
+      color: #FFD700;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-size: 0.85rem;
+    }
+
+    nav a:hover { text-decoration: underline; }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: #E53935;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.6rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.1s, background 0.2s;
+    }
+
+    .btn:hover {
+      background: #c62828;
+      transform: scale(1.05);
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .messages { margin-bottom: 1rem; }
+    .messages li {
+      background: rgba(229,57,53,0.2);
+      border-left: 3px solid #E53935;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      list-style: none;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 6px;
+      color: #f0f0f0;
+      font-size: 0.9rem;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #FFD700;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>⚗️ Laboratorio del Profesor Oak</h1>
+    <p>Elige tu compañero de aventuras</p>
+  </header>
+
+  <nav>
+    {% if user.is_authenticated %}
+      <a href="#">Mi Reserva</a>
+      <a href="{% url 'logout' %}">Salir</a>
+    {% else %}
+      <a href="{% url 'login' %}">Iniciar sesión</a>
+      <a href="{% url 'register' %}">Registrarse</a>
+    {% endif %}
+  </nav>
+
+  <div class="container">
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>
