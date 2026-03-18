@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 style="font-family:'Press Start 2P',monospace; font-size:0.75rem; color:#FFD700; text-align:center; margin-bottom:0.5rem;">
+  Elegiste a {{ creature.emoji }} {{ creature.name }}
+</h2>
+<p style="text-align:center; color:#aaa; margin-bottom:2rem; font-size:0.85rem;">
+  Ahora elige un horario disponible
+</p>
+
+<div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+  {% for slot in slots %}
+  <a href="#" style="text-decoration:none;">
+    <div class="slot-card">
+      <div class="slot-day">{{ slot.get_day_display }}</div>
+      <div class="slot-time">{{ slot.start_time|time:"H:i" }} — {{ slot.end_time|time:"H:i" }}</div>
+      <div class="slot-spots">
+        {% if slot.spots_left == 1 %}
+          ⚠️ Último cupo
+        {% else %}
+          ✅ {{ slot.spots_left }} cupos
+        {% endif %}
+      </div>
+    </div>
+  </a>
+  {% empty %}
+    <p style="color:#aaa; text-align:center;">No hay horarios disponibles por el momento.</p>
+  {% endfor %}
+</div>
+
+<style>
+  .slot-card {
+    background: rgba(255,255,255,0.05);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 180px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .slot-card:hover {
+    transform: translateY(-6px);
+    border-color: #FFD700;
+    box-shadow: 0 6px 20px rgba(255,215,0,0.15);
+  }
+
+  .slot-day {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+    color: #FFD700;
+    margin-bottom: 0.75rem;
+  }
+
+  .slot-time {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #f0f0f0;
+    margin-bottom: 0.5rem;
+  }
+
+  .slot-spots {
+    font-size: 0.8rem;
+    color: #aaa;
+  }
+</style>
+{% endblock %}

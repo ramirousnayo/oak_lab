@@ -6,7 +6,7 @@
 
 <div style="display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap;">
   {% for creature in creatures %}
-  <a href="#" style="text-decoration:none;">
+  <a href="{% url 'choose_slot' creature.id %}" style="text-decoration:none;">
     <div class="creature-card">
       <div class="creature-emoji">{{ creature.emoji }}</div>
       <h3 class="creature-name">{{ creature.name }}</h3>

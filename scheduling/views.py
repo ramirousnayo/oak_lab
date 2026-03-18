@@ -36,3 +36,15 @@ def choose_creature(request):
         return redirect('my_booking')
     creatures = Creature.objects.all()
     return render(request, 'choose_creature.html', {'creatures': creatures})
+
+@login_required
+def choose_slot(request, creature_id):
+    if hasattr(request.user, 'booking'):
+        return redirect('my_booking')
+    creature = Creature.objects.get(id=creature_id)
+    slots = TimeSlot.objects.all()
+    available_slots = [s for s in slots if s.spots_left() > 0]
+    return render(request, 'choose_slot.html', {
+        'creature': creature,
+        'slots': available_slots
+    })
